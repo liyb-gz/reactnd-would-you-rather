@@ -10,6 +10,7 @@ import NewQuestion from "./NewQuestion";
 import Leaderboard from "./Leaderboard";
 import Question from "./Question";
 import Loading from "./Loading";
+import Login from "./Login";
 
 class App extends Component {
   componentDidMount() {
@@ -31,6 +32,7 @@ class App extends Component {
                 <Route path="/add" component={NewQuestion} />
                 <Route path="/leaderboard" component={Leaderboard} />
                 <Route path="/questions/:id" component={Question} />
+                <Route path="/login" component={Login} />
               </div>
             </div>
           </div>
