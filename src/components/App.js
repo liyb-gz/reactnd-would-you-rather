@@ -16,7 +16,10 @@ class App extends Component {
   }
 
   render() {
-    return (
+    const { loading } = this.props;
+    return loading ? (
+      <p>Loading...</p>
+    ) : (
       <div className="App">
         <Nav />
         <section className="section wyr-main">
@@ -36,4 +39,10 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+function mapStateToProps(state) {
+  return {
+    loading: state.loading,
+  };
+}
+
+export default connect(mapStateToProps)(App);
