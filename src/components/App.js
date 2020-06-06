@@ -18,7 +18,9 @@ class App extends Component {
   render() {
     const { loading } = this.props;
     return loading ? (
-      <p>Loading...</p>
+      <div className="pageloader is-active">
+        <span className="title">Would You Rather is loading...</span>
+      </div>
     ) : (
       <div className="App">
         <Nav />
