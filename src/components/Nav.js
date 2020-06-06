@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 export class Nav extends Component {
@@ -11,6 +12,7 @@ export class Nav extends Component {
     });
   };
   render() {
+    console.log(this.props.authedUser);
     const { isActive } = this.state;
     return (
       <nav
@@ -78,4 +80,11 @@ export class Nav extends Component {
   }
 }
 
-export default Nav;
+function mapStateToProps(state) {
+  const { authedUser } = state;
+  return {
+    authedUser,
+  };
+}
+
+export default connect(mapStateToProps)(Nav);
