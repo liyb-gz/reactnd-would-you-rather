@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
@@ -12,7 +12,7 @@ export class Nav extends Component {
     });
   };
   render() {
-    console.log(this.props.authedUser);
+    const { currentUser } = this.props;
     const { isActive } = this.state;
     return (
       <nav
@@ -66,13 +66,37 @@ export class Nav extends Component {
           </div>
 
           <div className="navbar-end">
-            <div className="navbar-item">
-              <div className="buttons">
-                <a className="button is-primary">
-                  <strong>Log in</strong>
-                </a>
+            {currentUser ? (
+              <Fragment>
+                <div className="navbar-item">
+                  <p>Welcome, {currentUser.name}</p>
+                </div>
+                <div className="navbar-item">
+                  <figure className="image is-32x32">
+                    <img
+                      src={currentUser.avatarURL}
+                      className="is-rounded"
+                      alt={currentUser.name}
+                    />
+                  </figure>
+                </div>
+                <div className="navbar-item">
+                  <div className="buttons">
+                    <a className="button is-white">
+                      <strong>Log out</strong>
+                    </a>
+                  </div>
+                </div>
+              </Fragment>
+            ) : (
+              <div className="navbar-item">
+                <div className="buttons">
+                  <button className="button is-white">
+                    <strong>Log in</strong>
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </nav>
@@ -81,9 +105,9 @@ export class Nav extends Component {
 }
 
 function mapStateToProps(state) {
-  const { authedUser } = state;
+  const { authedUser, users } = state;
   return {
-    authedUser,
+    currentUser: authedUser ? users[authedUser] : null,
   };
 }
 
