@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { setAuthedUser } from "../actions/authedUser";
+import { handleInitialData } from "../actions/shared";
 
 import Nav from "./Nav";
 import Home from "./Home";
@@ -12,7 +12,7 @@ import Question from "./Question";
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(setAuthedUser("felixli"));
+    this.props.dispatch(handleInitialData());
   }
 
   render() {

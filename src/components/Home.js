@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 
 export class Home extends Component {
   render() {
+    console.log(this.props.questions);
     return (
       <Fragment>
         <div className="tabs">
@@ -83,4 +85,10 @@ export class Home extends Component {
   }
 }
 
-export default Home;
+function mapStateToProps(state) {
+  return {
+    questions: state.questions,
+  };
+}
+
+export default connect(mapStateToProps)(Home);
