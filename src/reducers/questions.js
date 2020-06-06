@@ -5,7 +5,7 @@ function questions(state = {}, action) {
     case SET_QUESTIONS:
       return {
         ...state,
-        questions: action.questions,
+        ...action.questions,
       };
     default:
       return state;
