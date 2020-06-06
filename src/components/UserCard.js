@@ -24,14 +24,16 @@ function UserCard(props) {
           </div>
         </div>
         <table className="table">
-          <tr>
-            <td>Answered Questions</td>
-            <td>{numAnswers}</td>
-          </tr>
-          <tr>
-            <td>Created Questions</td>
-            <td>{numQuestions}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>Answered Questions</td>
+              <td>{numAnswers}</td>
+            </tr>
+            <tr>
+              <td>Created Questions</td>
+              <td>{numQuestions}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
