@@ -1,80 +1,44 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
+import { connect } from "react-redux";
+import AnsweredQuestion from "./AnsweredQuestion";
+import UnansweredQuestion from "./UnansweredQuestion";
 
 export class Question extends Component {
   render() {
+    const { author, question, currentUser } = this.props;
+    if (!(author || question || currentUser)) {
+      return null;
+    }
+
+    const alreadyAnswered = Object.keys(currentUser.answers).includes(
+      question.id
+    );
+
+    let QuestionCard = alreadyAnswered ? AnsweredQuestion : UnansweredQuestion;
+
     return (
-      <div className="card card-question">
-        <header className="card-header has-background-primary">
-          <p className="card-header-title">Asked by Felix Li</p>
-        </header>
-        <div className="card-content">
-          <article className="media">
-            <figure className="media-left">
-              <p className="image is-64x64">
-                <img
-                  className="is-rounded"
-                  src="https://i.pravatar.cc/300?img=1"
-                  alt="User portrait"
-                />
-              </p>
-            </figure>
-            <div className="media-content">
-              <p className="content">
-                <strong>Results:</strong>
-              </p>
-              <div className="columns">
-                <div className="column">
-                  <div className="card card-question-result is-fullwidth is-shadowless">
-                    <div className="card-content">
-                      <p className="content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                      </p>
-                      <figure>
-                        <progress
-                          className="progress is-primary is-marginless"
-                          value="15"
-                          max="100"
-                        >
-                          15%
-                        </progress>
-                        <figcaption>
-                          <strong>2 out of 3 votes</strong>
-                        </figcaption>
-                      </figure>
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div
-                    className="card card-question-result selected has-badge-rounded has-badge-large is-fullwidth is-shadowless"
-                    data-badge="✓"
-                  >
-                    <div className="card-content">
-                      <p className="content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                      </p>
-                      <figure>
-                        <progress
-                          className="progress is-primary is-marginless"
-                          value="15"
-                          max="100"
-                        >
-                          15%
-                        </progress>
-                        <figcaption>
-                          <strong>2 out of 3 votes</strong>
-                        </figcaption>
-                      </figure>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
+      <QuestionCard
+        author={author}
+        question={question}
+        currentUser={currentUser}
+      />
     );
   }
 }
 
-export default Question;
+function mapStateToProps({ users, questions, authedUser }, { match }) {
+  const questionId = match.params.id;
+  const question = questions[questionId] || null;
+  const author = question ? users[question.author] : null;
+  const currentUser = users[authedUser] || null;
+  console.log("MapStateToProps: ", users, questions, authedUser);
+
+  return {
+    question,
+    author,
+    currentUser,
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(Question));
