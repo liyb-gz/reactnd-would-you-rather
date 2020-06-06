@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 
 export class Login extends Component {
   state = {
-    selectedUser: null,
+    selectedUser: "",
   };
   updateSelectedUser = (event) => {
     event.preventDefault();
@@ -36,6 +36,9 @@ export class Login extends Component {
               placeholder="Select a user"
               onChange={this.updateSelectedUser}
             >
+              <option hidden disabled value="">
+                Select a user
+              </option>
               {Object.values(users).map((user) => (
                 <option value={user.id} key={user.id}>
                   {user.name}
@@ -46,6 +49,7 @@ export class Login extends Component {
           <button
             className="button is-primary is-fullwidth"
             onClick={this.loginUser}
+            disabled={selectedUser === ""}
           >
             Log in
           </button>
