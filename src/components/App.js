@@ -9,6 +9,7 @@ import Home from "./Home";
 import NewQuestion from "./NewQuestion";
 import Leaderboard from "./Leaderboard";
 import Question from "./Question";
+import Loading from "./Loading";
 
 class App extends Component {
   componentDidMount() {
@@ -18,9 +19,7 @@ class App extends Component {
   render() {
     const { loading } = this.props;
     return loading ? (
-      <div className="pageloader is-active">
-        <span className="title">Would You Rather is loading...</span>
-      </div>
+      <Loading />
     ) : (
       <div className="App">
         <Nav />
@@ -41,9 +40,9 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ loading }) {
   return {
-    loading: state.loading,
+    loading,
   };
 }
 
