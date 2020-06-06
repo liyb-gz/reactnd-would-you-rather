@@ -3,21 +3,37 @@ import { connect } from "react-redux";
 import QuestionSummary from "./QuestionSummary";
 
 export class Home extends Component {
+  state = {
+    displayUnanswered: true,
+  };
+  setDisplayUnanswered = (value) => {
+    this.setState({
+      displayUnanswered: value,
+    });
+  };
   render() {
-    const { questionIds } = this.props;
+    const { answeredQuestionIds, unansweredQuestionIds } = this.props;
+    const { displayUnanswered } = this.state;
+    const chosenQuestionIds = displayUnanswered
+      ? unansweredQuestionIds
+      : answeredQuestionIds;
     return (
       <Fragment>
         <div className="tabs">
           <ul>
-            <li className="is-active">
-              <a>Unanswered Questions</a>
+            <li className={displayUnanswered ? "is-active" : null}>
+              <a onClick={() => this.setDisplayUnanswered(true)}>
+                Unanswered Questions
+              </a>
             </li>
-            <li>
-              <a>Answered Questions</a>
+            <li className={!displayUnanswered ? "is-active" : null}>
+              <a onClick={() => this.setDisplayUnanswered(false)}>
+                Answered Questions
+              </a>
             </li>
           </ul>
         </div>
-        {questionIds.map((id) => (
+        {chosenQuestionIds.map((id) => (
           <QuestionSummary id={id} key={id} />
         ))}
       </Fragment>
@@ -25,9 +41,18 @@ export class Home extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ questions, users, authedUser }) {
+  const questionIds = Object.keys(questions);
+  const currentUser = users[authedUser] || null;
+  const answeredQuestionIds = currentUser
+    ? Object.keys(currentUser.answers)
+    : [];
+  const unansweredQuestionIds = questionIds.filter(
+    (id) => !answeredQuestionIds.includes(id)
+  );
   return {
-    questionIds: Object.keys(state.questions),
+    answeredQuestionIds,
+    unansweredQuestionIds,
   };
 }
 
