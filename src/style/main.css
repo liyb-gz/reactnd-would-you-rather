@@ -8466,7 +8466,8 @@ label.panel-block {
     opacity: 0;
     background-color: transparent; } }
 
-.card-question {
+.card-question,
+.card-person {
   margin-bottom: 20px; }
 
 .wyr {

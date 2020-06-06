@@ -1,6 +1,9 @@
 import React from "react";
 
-function Person() {
+function UserCard(props) {
+  const { user } = props;
+  const numQuestions = user.questions.length;
+  const numAnswers = Object.keys(user.answers).length;
   return (
     <div className="card card-person">
       <div className="card-content">
@@ -9,25 +12,25 @@ function Person() {
             <p className="image is-64x64">
               <img
                 className="is-rounded"
-                src="https://i.pravatar.cc/300?img=2"
-                alt="User portrait"
+                src={user.avatarURL}
+                alt={user.name}
               />
             </p>
           </figure>
           <div className="media-content">
             <h3 className="title">
-              <strong>Felix Li</strong>
+              <strong>{user.name}</strong>
             </h3>
           </div>
         </div>
         <table className="table">
           <tr>
             <td>Answered Questions</td>
-            <td>3</td>
+            <td>{numAnswers}</td>
           </tr>
           <tr>
             <td>Created Questions</td>
-            <td>5</td>
+            <td>{numQuestions}</td>
           </tr>
         </table>
       </div>
@@ -35,4 +38,4 @@ function Person() {
   );
 }
 
-export default Person;
+export default UserCard;
