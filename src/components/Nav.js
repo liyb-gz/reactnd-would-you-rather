@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
 export class Nav extends Component {
   state = {
@@ -37,10 +38,29 @@ export class Nav extends Component {
 
         <div className={`navbar-menu ${isActive ? "is-active" : null}`}>
           <div className="navbar-start">
-            <a className="navbar-item">Home</a>
+            <NavLink
+              className="navbar-item"
+              activeClassName="is-active"
+              to="/"
+              exact
+            >
+              Home
+            </NavLink>
 
-            <a className="navbar-item">New Question</a>
-            <a className="navbar-item">Leaderboard</a>
+            <NavLink
+              className="navbar-item"
+              activeClassName="is-active"
+              to="/add"
+            >
+              New Question
+            </NavLink>
+            <NavLink
+              className="navbar-item"
+              activeClassName="is-active"
+              to="/leaderboard"
+            >
+              Leaderboard
+            </NavLink>
           </div>
 
           <div className="navbar-end">
