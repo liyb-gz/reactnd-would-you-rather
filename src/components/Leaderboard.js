@@ -4,7 +4,7 @@ import UserCard from "./UserCard";
 
 function Leaderboard(props) {
   const { users } = props;
-  return users.map((user) => <UserCard user={user} />);
+  return users.map((user) => <UserCard user={user} key={user.id} />);
 }
 
 function mapStateToProps({ users }) {
