@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+import { setAuthedUser } from "../actions/authedUser";
 
 export class Nav extends Component {
   state = {
@@ -12,7 +13,7 @@ export class Nav extends Component {
     });
   };
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, logoutUser } = this.props;
     const { isActive } = this.state;
     return (
       <nav
@@ -82,7 +83,7 @@ export class Nav extends Component {
                 </div>
                 <div className="navbar-item">
                   <div className="buttons">
-                    <a className="button is-white">
+                    <a className="button is-white" onClick={logoutUser}>
                       <strong>Log out</strong>
                     </a>
                   </div>
@@ -91,9 +92,9 @@ export class Nav extends Component {
             ) : (
               <div className="navbar-item">
                 <div className="buttons">
-                  <button className="button is-white">
+                  <Link to="/login" className="button is-white">
                     <strong>Log in</strong>
-                  </button>
+                  </Link>
                 </div>
               </div>
             )}
@@ -111,4 +112,12 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Nav);
+function mapDispatchToProps(dispatch) {
+  return {
+    logoutUser: () => {
+      dispatch(setAuthedUser(null));
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);
