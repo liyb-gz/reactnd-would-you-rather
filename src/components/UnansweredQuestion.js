@@ -5,26 +5,42 @@ import { handleQuestionAnswer } from "../actions/shared";
 class AnsweredQuestion extends Component {
   state = {
     chosenAnswer: null,
+    loading: false,
   };
+
   setChosenAnswer = (value) => {
     this.setState({
       chosenAnswer: value,
     });
   };
+
   handleSubmit = (e) => {
     e.preventDefault();
     const { question, currentUser, addQuestionAnswer } = this.props;
     const { chosenAnswer } = this.state;
 
-    addQuestionAnswer({
-      authedUser: currentUser.id,
-      qid: question.id,
-      answer: chosenAnswer,
+    this.setLoading(true);
+    addQuestionAnswer(
+      {
+        authedUser: currentUser.id,
+        qid: question.id,
+        answer: chosenAnswer,
+      },
+      () => {
+        this.setLoading(false);
+      }
+    );
+  };
+
+  setLoading = (value) => {
+    this.setState({
+      loading: value,
     });
   };
+
   render() {
     const { author, question } = this.props;
-    const { chosenAnswer } = this.state;
+    const { chosenAnswer, loading } = this.state;
 
     return (
       <div className="card card-question">
@@ -77,7 +93,9 @@ class AnsweredQuestion extends Component {
         </div>
         <footer className="card-footer">
           <button
-            className="card-footer-item button is-white"
+            className={`card-footer-item button is-white ${
+              loading ? "is-loading" : ""
+            }`}
             disabled={!chosenAnswer}
             onClick={this.handleSubmit}
           >

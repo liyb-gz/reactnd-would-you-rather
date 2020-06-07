@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleNewQuestion } from "../actions/shared";
+import { withRouter } from "react-router-dom";
 
 export class NewQuestion extends Component {
   state = {
     option1: "",
     option2: "",
+    loading: false,
   };
 
   handleChange = (e) => {
@@ -17,17 +19,31 @@ export class NewQuestion extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { addNewQuestion, authedUser } = this.props;
+    const { addNewQuestion, authedUser, history } = this.props;
     const { option1, option2 } = this.state;
-    addNewQuestion({
-      optionOneText: option1,
-      optionTwoText: option2,
-      author: authedUser,
+
+    this.setLoading(true);
+    addNewQuestion(
+      {
+        optionOneText: option1,
+        optionTwoText: option2,
+        author: authedUser,
+      },
+      ({ id }) => {
+        this.setLoading(false);
+        history.push(`/questions/${id}`);
+      }
+    );
+  };
+
+  setLoading = (value) => {
+    this.setState({
+      loading: value,
     });
   };
 
   render() {
-    const { option1, option2 } = this.state;
+    const { option1, option2, loading } = this.state;
     return (
       <div className="card card-question">
         <header className="card-header has-background-primary">
@@ -67,7 +83,9 @@ export class NewQuestion extends Component {
         </div>
         <footer className="card-footer">
           <button
-            className="card-footer-item button is-white"
+            className={`card-footer-item button is-white ${
+              loading ? "is-loading" : ""
+            }`}
             disabled={!(option1 && option2)}
             onClick={this.handleSubmit}
           >
@@ -87,10 +105,12 @@ function mapStateToProps({ authedUser }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addNewQuestion: (question) => {
-      dispatch(handleNewQuestion(question));
+    addNewQuestion: (question, callback) => {
+      dispatch(handleNewQuestion(question, callback));
     },
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewQuestion);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(NewQuestion)
+);

@@ -24,14 +24,15 @@ export function handleInitialData() {
   };
 }
 
-export function handleNewQuestion(question) {
+export function handleNewQuestion(question, callback) {
   return (dispatch) => {
-    dispatch(showLoading());
     return saveQuestion(question)
       .then((question) => {
       dispatch(addQuestion(question));
       dispatch(addQuestionToUserList(question));
-      dispatch(hideLoading());
+        if (callback) {
+          callback(question);
+        }
       })
       .catch((e) => {
         console.error("Error", e);
@@ -39,14 +40,15 @@ export function handleNewQuestion(question) {
   };
 }
 
-export function handleQuestionAnswer(answer) {
+export function handleQuestionAnswer(answer, callback) {
   return (dispatch) => {
-    dispatch(showLoading());
     return saveQuestionAnswer(answer)
       .then(() => {
         dispatch(addQuestionAnswer(answer));
         dispatch(addQuestionAnswerToUserList(answer));
-        dispatch(hideLoading());
+        if (callback) {
+          callback(answer);
+        }
       })
       .catch((e) => {
         console.error("Error", e);
