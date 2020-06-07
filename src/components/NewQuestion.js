@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { handleNewQuestion } from "../actions/shared";
 
 export class NewQuestion extends Component {
   state = {
@@ -10,6 +12,17 @@ export class NewQuestion extends Component {
     e.preventDefault();
     this.setState({
       [e.target.name]: e.target.value,
+    });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { addNewQuestion, authedUser } = this.props;
+    const { option1, option2 } = this.state;
+    addNewQuestion({
+      optionOneText: option1,
+      optionTwoText: option2,
+      author: authedUser,
     });
   };
 
@@ -55,7 +68,8 @@ export class NewQuestion extends Component {
         <footer className="card-footer">
           <button
             className="card-footer-item button is-white"
-            disabled={!(option1 || option2)}
+            disabled={!(option1 && option2)}
+            onClick={this.handleSubmit}
           >
             Submit
           </button>
@@ -65,4 +79,18 @@ export class NewQuestion extends Component {
   }
 }
 
-export default NewQuestion;
+function mapStateToProps({ authedUser }) {
+  return {
+    authedUser,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addNewQuestion: (question) => {
+      dispatch(handleNewQuestion(question));
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewQuestion);
