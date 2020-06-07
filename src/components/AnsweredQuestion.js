@@ -2,9 +2,6 @@ import React from "react";
 
 function AnsweredQuestion(props) {
   const { author, question, currentUser } = props;
-  if (!(author || question || currentUser)) {
-    return null;
-  }
 
   const vote1 = question.optionOne.votes.length;
   const vote2 = question.optionTwo.votes.length;

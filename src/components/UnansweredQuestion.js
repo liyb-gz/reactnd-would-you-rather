@@ -12,9 +12,6 @@ class AnsweredQuestion extends Component {
   render() {
     const { author, question, currentUser } = this.props;
     const { chosenAnswer } = this.state;
-    if (!(author || question || currentUser)) {
-      return null;
-    }
 
     return (
       <div className="card card-question">
