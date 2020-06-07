@@ -42,7 +42,9 @@ export class Home extends Component {
 }
 
 function mapStateToProps({ questions, users, authedUser }) {
-  const questionIds = Object.keys(questions);
+  const questionIds = Object.keys(questions).sort(
+    (a, b) => questions[b].timestamp - questions[a].timestamp
+  );
   const currentUser = users[authedUser] || null;
   const answeredQuestionIds = currentUser
     ? Object.keys(currentUser.answers)
