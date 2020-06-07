@@ -22,14 +22,24 @@ export class Home extends Component {
         <div className="tabs">
           <ul>
             <li className={displayUnanswered ? "is-active" : null}>
-              <a onClick={() => this.setDisplayUnanswered(true)}>
+              <button
+                className={`button ${
+                  displayUnanswered ? "is-primary" : "is-light"
+                }`}
+                onClick={() => this.setDisplayUnanswered(true)}
+              >
                 Unanswered Questions
-              </a>
+              </button>
             </li>
             <li className={!displayUnanswered ? "is-active" : null}>
-              <a onClick={() => this.setDisplayUnanswered(false)}>
+              <button
+                className={`button ${
+                  !displayUnanswered ? "is-primary" : "is-light"
+                }`}
+                onClick={() => this.setDisplayUnanswered(false)}
+              >
                 Answered Questions
-              </a>
+              </button>
             </li>
           </ul>
         </div>
