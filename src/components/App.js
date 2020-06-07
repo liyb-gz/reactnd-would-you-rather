@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { handleInitialData } from "../actions/shared";
@@ -11,6 +11,7 @@ import Leaderboard from "./Leaderboard";
 import Question from "./Question";
 import Loading from "./Loading";
 import Login from "./Login";
+import NotFound from "./NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 
 class App extends Component {
@@ -29,11 +30,14 @@ class App extends Component {
           <div className="container">
             <div className="columns is-centered">
               <div className="column is-two-thirds-tablet is-half-desktop">
-                <ProtectedRoute path="/" exact component={Home} />
-                <ProtectedRoute path="/add" component={NewQuestion} />
-                <ProtectedRoute path="/leaderboard" component={Leaderboard} />
-                <ProtectedRoute path="/questions/:id" component={Question} />
-                <Route path="/login" component={Login} />
+                <Switch>
+                  <ProtectedRoute path="/" exact component={Home} />
+                  <ProtectedRoute path="/add" component={NewQuestion} />
+                  <ProtectedRoute path="/leaderboard" component={Leaderboard} />
+                  <ProtectedRoute path="/questions/:id" component={Question} />
+                  <Route path="/login" component={Login} />
+                  <Route component={NotFound} />
+                </Switch>
               </div>
             </div>
           </div>

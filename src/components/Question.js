@@ -3,12 +3,13 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import AnsweredQuestion from "./AnsweredQuestion";
 import UnansweredQuestion from "./UnansweredQuestion";
+import NotFound from "./NotFound";
 
 export class Question extends Component {
   render() {
     const { author, question, currentUser } = this.props;
     if (!(author || question || currentUser)) {
-      return null;
+      return <NotFound />;
     }
 
     const alreadyAnswered = Object.keys(currentUser.answers).includes(
