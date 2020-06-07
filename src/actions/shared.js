@@ -23,10 +23,14 @@ export function handleInitialData() {
 export function handleNewQuestion(question) {
   return (dispatch) => {
     dispatch(showLoading());
-    return saveQuestion(question).then((question) => {
+    return saveQuestion(question)
+      .then((question) => {
       dispatch(addQuestion(question));
       dispatch(addQuestionToUserList(question));
       dispatch(hideLoading());
+      })
+      .catch((e) => {
+        console.error("Error", e);
     });
   };
 }

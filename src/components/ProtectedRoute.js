@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, withRouter } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 function ProtectedRoute({ component: Component, authedUser, ...rest }) {

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { setAuthedUser } from "../actions/authedUser";
 
 export class Nav extends Component {
@@ -25,9 +25,10 @@ export class Nav extends Component {
           <div className="navbar-item">
             <strong>Would You Rather?</strong>
           </div>
-          <a
-            role="button"
-            className={`navbar-burger burger ${isActive ? "is-active" : null}`}
+          <button
+            className={`navbar-burger burger button is-primary ${
+              isActive ? "is-active" : null
+            }`}
             aria-label="menu"
             aria-expanded="false"
             data-target="navbarBasicExample"
@@ -36,7 +37,7 @@ export class Nav extends Component {
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
-          </a>
+          </button>
         </div>
 
         <div className={`navbar-menu ${isActive ? "is-active" : null}`}>
@@ -83,9 +84,9 @@ export class Nav extends Component {
                 </div>
                 <div className="navbar-item">
                   <div className="buttons">
-                    <a className="button is-white" onClick={logoutUser}>
+                    <button className="button is-white" onClick={logoutUser}>
                       <strong>Log out</strong>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </Fragment>
