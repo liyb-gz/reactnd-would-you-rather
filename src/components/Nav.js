@@ -1,17 +1,28 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { setAuthedUser } from "../actions/authedUser";
 
 export class Nav extends Component {
   state = {
     isActive: false,
   };
-  toggleActive = () => {
-    this.setState({
-      isActive: !this.state.isActive,
+
+  componentDidMount() {
+    this.unlisten = this.props.history.listen(() => {
+      this.setActive(false);
     });
+  }
+  componentWillUnmount() {
+    this.unlisten();
+  }
+
+  setActive = (value) => {
+    this.setState(({ isActive }) => ({
+      isActive: typeof value === "boolean" ? value : !isActive,
+    }));
   };
+
   render() {
     const { currentUser, logoutUser } = this.props;
     const { isActive } = this.state;
@@ -32,7 +43,7 @@ export class Nav extends Component {
             aria-label="menu"
             aria-expanded="false"
             data-target="navbarBasicExample"
-            onClick={this.toggleActive}
+            onClick={() => this.setActive()}
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -113,4 +124,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav));
