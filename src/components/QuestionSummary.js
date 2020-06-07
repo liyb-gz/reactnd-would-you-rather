@@ -7,7 +7,7 @@ function QuestionSummary(props) {
   return (
     <div className="card card-question">
       <header className="card-header has-background-primary">
-        <p className="card-header-title">{author.name} asks:</p>
+        <p className="card-header-title">{author.name} asks</p>
       </header>
       <div className="card-content">
         <article className="media">
