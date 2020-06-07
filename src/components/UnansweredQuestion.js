@@ -66,9 +66,12 @@ class AnsweredQuestion extends Component {
           </article>
         </div>
         <footer className="card-footer">
-          <a href="#" className="card-footer-item">
+          <button
+            className="card-footer-item button is-white"
+            disabled={!chosenAnswer}
+          >
             Submit
-          </a>
+          </button>
         </footer>
       </div>
     );

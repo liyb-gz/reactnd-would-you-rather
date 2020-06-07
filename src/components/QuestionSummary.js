@@ -32,7 +32,10 @@ function QuestionSummary(props) {
         </article>
       </div>
       <footer className="card-footer">
-        <Link to={`questions/${question.id}`} className="card-footer-item">
+        <Link
+          to={`questions/${question.id}`}
+          className="card-footer-item button is-white"
+        >
           View
         </Link>
       </footer>
