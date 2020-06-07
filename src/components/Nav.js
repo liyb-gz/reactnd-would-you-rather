@@ -67,7 +67,7 @@ export class Nav extends Component {
           </div>
 
           <div className="navbar-end">
-            {currentUser ? (
+            {currentUser && (
               <Fragment>
                 <div className="navbar-item">
                   <p>Welcome, {currentUser.name}</p>
@@ -89,14 +89,6 @@ export class Nav extends Component {
                   </div>
                 </div>
               </Fragment>
-            ) : (
-              <div className="navbar-item">
-                <div className="buttons">
-                  <Link to="/login" className="button is-white">
-                    <strong>Log in</strong>
-                  </Link>
-                </div>
-              </div>
             )}
           </div>
         </div>

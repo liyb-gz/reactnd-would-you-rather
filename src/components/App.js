@@ -11,6 +11,7 @@ import Leaderboard from "./Leaderboard";
 import Question from "./Question";
 import Loading from "./Loading";
 import Login from "./Login";
+import ProtectedRoute from "./ProtectedRoute";
 
 class App extends Component {
   componentDidMount() {
@@ -28,10 +29,10 @@ class App extends Component {
           <div className="container">
             <div className="columns is-centered">
               <div className="column is-two-thirds-tablet is-half-desktop">
-                <Route path="/" exact component={Home} />
-                <Route path="/add" component={NewQuestion} />
-                <Route path="/leaderboard" component={Leaderboard} />
-                <Route path="/questions/:id" component={Question} />
+                <ProtectedRoute path="/" exact component={Home} />
+                <ProtectedRoute path="/add" component={NewQuestion} />
+                <ProtectedRoute path="/leaderboard" component={Leaderboard} />
+                <ProtectedRoute path="/questions/:id" component={Question} />
                 <Route path="/login" component={Login} />
               </div>
             </div>
