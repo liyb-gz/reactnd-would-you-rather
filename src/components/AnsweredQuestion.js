@@ -11,7 +11,6 @@ function AnsweredQuestion(props) {
   const totalVotes = vote1 + vote2;
   const chosenAnswer = currentUser.answers[question.id];
 
-  console.log(author, question);
   return (
     <div className="card card-question">
       <header className="card-header has-background-primary">

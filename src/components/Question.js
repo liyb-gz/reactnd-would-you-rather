@@ -32,7 +32,6 @@ function mapStateToProps({ users, questions, authedUser }, { match }) {
   const question = questions[questionId] || null;
   const author = question ? users[question.author] : null;
   const currentUser = users[authedUser] || null;
-  console.log("MapStateToProps: ", users, questions, authedUser);
 
   return {
     question,
