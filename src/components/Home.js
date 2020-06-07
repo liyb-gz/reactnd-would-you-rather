@@ -42,16 +42,12 @@ export class Home extends Component {
 }
 
 function mapStateToProps({ questions, users, authedUser }) {
-  const questionIds = Object.keys(questions).sort(
-    (a, b) => questions[b].timestamp - questions[a].timestamp
-  );
-  const currentUser = users[authedUser] || null;
-  const answeredQuestionIds = currentUser
-    ? Object.keys(currentUser.answers)
-    : [];
-  const unansweredQuestionIds = questionIds.filter(
-    (id) => !answeredQuestionIds.includes(id)
-  );
+  const sorting = (a, b) => questions[b].timestamp - questions[a].timestamp;
+  const currentUser = users[authedUser];
+  const answeredQuestionIds = Object.keys(currentUser.answers).sort(sorting);
+  const unansweredQuestionIds = Object.keys(questions)
+    .filter((id) => !answeredQuestionIds.includes(id))
+    .sort(sorting);
   return {
     answeredQuestionIds,
     unansweredQuestionIds,
