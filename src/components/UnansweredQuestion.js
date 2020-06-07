@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { handleQuestionAnswer } from "../actions/shared";
 
 class AnsweredQuestion extends Component {
   state = {
@@ -9,8 +11,19 @@ class AnsweredQuestion extends Component {
       chosenAnswer: value,
     });
   };
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { question, currentUser, addQuestionAnswer } = this.props;
+    const { chosenAnswer } = this.state;
+
+    addQuestionAnswer({
+      authedUser: currentUser.id,
+      qid: question.id,
+      answer: chosenAnswer,
+    });
+  };
   render() {
-    const { author, question, currentUser } = this.props;
+    const { author, question } = this.props;
     const { chosenAnswer } = this.state;
 
     return (
@@ -66,6 +79,7 @@ class AnsweredQuestion extends Component {
           <button
             className="card-footer-item button is-white"
             disabled={!chosenAnswer}
+            onClick={this.handleSubmit}
           >
             Submit
           </button>
@@ -75,4 +89,12 @@ class AnsweredQuestion extends Component {
   }
 }
 
-export default AnsweredQuestion;
+function mapDispatchToProps(dispatch) {
+  return {
+    addQuestionAnswer: (answer) => {
+      dispatch(handleQuestionAnswer(answer));
+    },
+  };
+}
+
+export default connect(null, mapDispatchToProps)(AnsweredQuestion);

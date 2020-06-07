@@ -1,4 +1,8 @@
-import { SET_USERS, ADD_QUESTION_TO_USER_LIST } from "../actions/users";
+import {
+  SET_USERS,
+  ADD_QUESTION_TO_USER_LIST,
+  ADD_QUESTION_ANSWER_TO_USER_LIST,
+} from "../actions/users";
 
 function users(state = {}, action) {
   switch (action.type) {
@@ -7,7 +11,7 @@ function users(state = {}, action) {
         ...state,
         ...action.users,
       };
-    case ADD_QUESTION_TO_USER_LIST: {
+    case ADD_QUESTION_TO_USER_LIST:
       const { author: userId, id: questionId } = action.question;
       console.log("USER REDUCER:", state, userId, questionId);
       return {
@@ -17,7 +21,18 @@ function users(state = {}, action) {
           questions: state[userId].questions.concat([questionId]),
         },
       };
-    }
+    case ADD_QUESTION_ANSWER_TO_USER_LIST:
+      const { authedUser, qid, answer } = action.answer;
+      return {
+        ...state,
+        [authedUser]: {
+          ...state[authedUser],
+          answers: {
+            ...state[authedUser].answers,
+            [qid]: answer,
+          },
+        },
+      };
     default:
       return state;
   }

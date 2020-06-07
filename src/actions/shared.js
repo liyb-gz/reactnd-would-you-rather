@@ -1,6 +1,10 @@
-import { getInitialData, saveQuestion } from "../utils/api";
-import { setQuestions, addQuestion } from "./questions";
-import { setUsers, addQuestionToUserList } from "./users";
+import { getInitialData, saveQuestion, saveQuestionAnswer } from "../utils/api";
+import { setQuestions, addQuestion, addQuestionAnswer } from "./questions";
+import {
+  setUsers,
+  addQuestionToUserList,
+  addQuestionAnswerToUserList,
+} from "./users";
 import { setAuthedUser } from "./authedUser";
 import { showLoading, hideLoading } from "./loading";
 
@@ -32,5 +36,20 @@ export function handleNewQuestion(question) {
       .catch((e) => {
         console.error("Error", e);
     });
+  };
+}
+
+export function handleQuestionAnswer(answer) {
+  return (dispatch) => {
+    dispatch(showLoading());
+    return saveQuestionAnswer(answer)
+      .then(() => {
+        dispatch(addQuestionAnswer(answer));
+        dispatch(addQuestionAnswerToUserList(answer));
+        dispatch(hideLoading());
+      })
+      .catch((e) => {
+        console.error("Error", e);
+      });
   };
 }
