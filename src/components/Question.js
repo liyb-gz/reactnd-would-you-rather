@@ -8,7 +8,8 @@ import NotFound from "./NotFound";
 export class Question extends Component {
   render() {
     const { author, question, currentUser } = this.props;
-    if (!(author || question || currentUser)) {
+
+    if (!(author && question && currentUser)) {
       return <NotFound />;
     }
 
