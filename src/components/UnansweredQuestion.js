@@ -65,8 +65,8 @@ class AnsweredQuestion extends Component {
             </div>
           </article>
         </div>
-        <footer class="card-footer">
-          <a href="#" class="card-footer-item">
+        <footer className="card-footer">
+          <a href="#" className="card-footer-item">
             Submit
           </a>
         </footer>
