@@ -15,10 +15,11 @@ export class Login extends Component {
   };
   loginUser = () => {
     const { selectedUser } = this.state;
-    const { setAuthedUser, history } = this.props;
+    const { setAuthedUser, history, location } = this.props;
 
+    const { from } = location.state || { from: { pathname: "/" } };
     setAuthedUser(selectedUser);
-    history.push("/");
+    history.push(from);
   };
   render() {
     const { users } = this.props;
