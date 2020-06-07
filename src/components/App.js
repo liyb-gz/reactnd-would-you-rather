@@ -36,7 +36,7 @@ class App extends Component {
                   <ProtectedRoute path="/leaderboard" component={Leaderboard} />
                   <ProtectedRoute path="/questions/:id" component={Question} />
                   <Route path="/login" component={Login} />
-                  <Route component={NotFound} />
+                  <ProtectedRoute component={NotFound} />
                 </Switch>
               </div>
             </div>

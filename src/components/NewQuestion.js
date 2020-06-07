@@ -29,9 +29,9 @@ export class NewQuestion extends Component {
         optionTwoText: option2,
         author: authedUser,
       },
-      ({ id }) => {
+      () => {
         this.setLoading(false);
-        history.push(`/questions/${id}`);
+        history.push("/");
       }
     );
   };
