@@ -13,7 +13,6 @@ function users(state = {}, action) {
       };
     case ADD_QUESTION_TO_USER_LIST:
       const { author: userId, id: questionId } = action.question;
-      console.log("USER REDUCER:", state, userId, questionId);
       return {
         ...state,
         [userId]: {
